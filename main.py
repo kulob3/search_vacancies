@@ -1,4 +1,5 @@
 import os
+import sys
 from src.get_vacancies import HHruAPI, CreateJson
 from src.vacancies import Vacancies
 from src.utils import sort_by_salary, sort_by_date, get_exchange_rate,  change_currency, without_sort
@@ -32,8 +33,21 @@ def user_interaction():
 
     # vacancies_per_salary = sort_by_salary(path_to_file)
     # vacancies_per_date = sort_by_date(change_currency_to_rub)
-    for i in vacancies_for_output:
-        print(i.__str__())
+    if len(vacancies_for_output) <= 20:
+        for i in vacancies_for_output:
+            print(i.__str__())
+    else:
+        batch_size = 20
+        for start in range(0, len(vacancies_for_output), batch_size):
+            end = start + batch_size
+            for vacancy in vacancies_for_output[start:end]:
+                print(vacancy.__str__())
+            user_input = input("\nВведите 1, чтобы увидеть следующие 20 вакансий или 2 для завершения работы программы: ")
+            if user_input != '1':
+                print('\nКонец программы')
+                sys.exit()
+    print('\nКонец программы')
+
 
 if __name__ == "__main__":
     user_interaction()
