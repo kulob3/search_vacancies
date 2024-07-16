@@ -21,9 +21,9 @@ class HHruAPI(VacancyServiceAPI):
         try:
             response = requests.get(self.base_url)
             response.raise_for_status()
-            print("\nConnection successful")
+            print("Соединение с HH.ru установлено")
         except requests.exceptions.RequestException as e:
-            print(f"\nConnection failed: {e}")
+            print(f"Ошибка соединения: {e}")
 
     def load_vacancies(self, query):
         # Загрузка вакансий
@@ -46,7 +46,8 @@ class CreateJson:
             new_json = {
                 'name': i['name'],
                 'employer': i['employer']['name'],
-                'salary': i['salary'],
+                'salary': i['salary']['from'] if i['salary'] else 'Не указана',
+                'currency': i['salary']['currency'] if i['salary'] else '',
                 'experience': i['experience']['name'],
                 'employment': i['employment']['name'],
                 'area': i['area']['name'],

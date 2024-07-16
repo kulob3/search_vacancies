@@ -1,6 +1,7 @@
 from datetime import datetime
 
 
+
 class Vacancies:
     def __init__(self, name, employer, salary, currency, expirience, employment, area, published_at, alternate_url):
         self.name = name
