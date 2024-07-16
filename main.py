@@ -22,7 +22,7 @@ def user_interaction():
     print(f'Найдено {len(vacancies)} вакансий:')
     path_to_file = os.path.abspath('data/vacancies.json')
     change_currency_to_rub = change_currency(path_to_file)
-    value_for_sort = input("Введите '1' для сортировки по зарплате, '2' для сортировки по дате размещения: ")
+    value_for_sort = input("Введите '1' для сортировки по зарплате, '2' для сортировки по дате размещения, 'Enter' - без сортировки: ")
     if value_for_sort == '1':
         vacancies_for_output = sort_by_salary(change_currency_to_rub)
     elif value_for_sort == '2':
