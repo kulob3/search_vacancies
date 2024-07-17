@@ -20,7 +20,7 @@ def get_exchange_rate():
 
 def change_currency(path_to_file):
     """
-        Конвертирует зарплату в вакансиях из USD в RUB
+        Открывает json и конвертирует зарплату в вакансиях из USD в RUB
     """
     path_vacancies = os.path.abspath(path_to_file)
     with open(path_vacancies, 'r', encoding='utf-8') as file:
@@ -33,7 +33,7 @@ def change_currency(path_to_file):
 
 def without_sort(list_vacancies):
     """
-    Получает список вакансий из vacancies.json.
+    Сортирует список вакансий по порядку
     """
     sorted_vacancies = []
     for i in list_vacancies:
@@ -46,7 +46,7 @@ def sort_by_salary(list_vacancies):
     """
         Сортирует список вакансий по зарплате
     """
-    vacancies_sort = sorted(list_vacancies, key=lambda x: x['salary'] if x['salary'] else 0, reverse=True)
+    vacancies_sort = sorted(list_vacancies, key=lambda x: int(x['salary']) if isinstance(x['salary'], int) else (int(x['salary']) if isinstance(x['salary'], str) and x['salary'].isdigit() else 0), reverse=True)
     sorted_vacancies = []
     for i in vacancies_sort:
         sorted_vacancies.append(
@@ -66,25 +66,3 @@ def sort_by_date(list_vacancies):
                       i['employment'], i['area'], i['published_at'], i['alternate_url']))
     return sorted_vacancies
 
-
-
-
-
-if __name__ == "__main__":
-    print(get_exchange_rate())
-    obj = sort_by_salary('..//data/vacancies.json')
-    for i in obj:
-        print(i.__str__())
-
-
-
-
-    # for i in open_json('..//data/vacancies.json'):
-    #     print(i['name'])
-    #     print(i['employer'])
-    #     print(i['salary'])
-    #     print(i['experience'])
-    #     print(i['employment'])
-    #     print(i['area'])
-    #     print(i['published_at'])
-    #     print(i['alternate_url'])

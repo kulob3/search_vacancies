@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import requests
-import os
 import json
 
 class VacancyServiceAPI(ABC):
@@ -14,6 +13,8 @@ class VacancyServiceAPI(ABC):
         pass
 
 class HHruAPI(VacancyServiceAPI):
+    ''' Класс для загрузки вакансий с HH.ru '''
+
     base_url = "https://api.hh.ru/vacancies"
 
     def connect(self):
@@ -37,6 +38,7 @@ class HHruAPI(VacancyServiceAPI):
 
 
 class CreateJson:
+    ''' Класс для создания файла json из списка'''
     def __init__(self, filename):
         self.filename = filename
 
@@ -58,22 +60,3 @@ class CreateJson:
 
         with open(self.filename, 'w', encoding='utf-8') as file:
             json.dump(all_data, file, ensure_ascii=False, indent=4)
-
-
-if __name__ == "__main__":
-    hh = HHruAPI()
-    hh.connect()
-    vacancies = hh.load_vacancies("Python Москва зарплата от 100000")
-
-    cj = CreateJson('..//data/vacancies.json')
-    cj.write(vacancies)
-
-    for i in vacancies:
-        print(i['name'])
-        print(i['employer']['name'])
-        print(i['salary'])
-        print('experience:', i['experience']['name'])
-        print('employment:', i['employment']['name'])
-        print('area:', i['area']['name'])
-        print(i['published_at'])
-        print(i['alternate_url'])

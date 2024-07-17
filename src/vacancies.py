@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class Vacancies:
+    ''' Класс для представления вакансий '''
     def __init__(self, name, employer, salary, currency, expirience, employment, area, published_at, alternate_url):
         self.name = name
         self.employer = employer
