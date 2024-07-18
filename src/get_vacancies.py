@@ -40,7 +40,15 @@ class HHruAPI(VacancyServiceAPI):
 class CreateJson:
     ''' Класс для создания файла json из списка'''
     def __init__(self, filename):
-        self.filename = filename
+        self.__filename = filename
+
+    @property
+    def filename(self):
+        return self.__filename
+
+    @filename.setter
+    def filename(self, value):
+        self.__filename = value
 
     def write(self, data):
         all_data = []
