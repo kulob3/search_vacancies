@@ -15,7 +15,7 @@ class VacancyServiceAPI(ABC):
 class HHruAPI(VacancyServiceAPI):
     ''' Класс для загрузки вакансий с HH.ru '''
 
-    base_url = "https://api.hh.ru/vacancies"
+    __base_url = "https://api.hh.ru/vacancies"
 
     def connect(self):
         # Проверка подключения к API
