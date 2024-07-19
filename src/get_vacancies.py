@@ -20,7 +20,7 @@ class HHruAPI(VacancyServiceAPI):
     def connect(self):
         # Проверка подключения к API
         try:
-            response = requests.get(self.base_url)
+            response = requests.get(self.__base_url)
             response.raise_for_status()
             print("Соединение с HH.ru установлено")
         except requests.exceptions.RequestException as e:
@@ -31,7 +31,7 @@ class HHruAPI(VacancyServiceAPI):
         params = {'text': query, 'page': 0, 'per_page': 100}
         vacancies = []
         while params.get('page') != 20:
-            response = requests.get(self.base_url, params=params)
+            response = requests.get(self.__base_url, params=params)
             vacancies.extend(response.json()['items'])
             params['page'] += 1
         return vacancies
