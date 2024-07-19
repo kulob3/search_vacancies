@@ -10,7 +10,7 @@ def get_exchange_rate():
     """
     url = "https://www.cbr-xml-daily.ru/daily_json.js"
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)  # Установка времени ожидания запроса 10 секунд
         response.raise_for_status()
         data = response.json()
         return data['Valute']['USD']['Value']
@@ -18,18 +18,19 @@ def get_exchange_rate():
         print(f"Ошибка при получении курса валюты: {e}. Курс валюты установлен по умолчанию: ")
         return 90.0
 
-def change_currency(path_to_file):
+def change_currency(opened_json):
     """
-        Открывает json и конвертирует зарплату в вакансиях из USD в RUB
+        Конвертирует зарплату в вакансиях из USD в RUB
     """
-    path_vacancies = os.path.abspath(path_to_file)
-    with open(path_vacancies, 'r', encoding='utf-8') as file:
-        list_vacancies = js.loads(file.read())
-        for i in list_vacancies:
-            if i['currency'] == 'USD':
-                i['salary'] = i['salary'] * get_exchange_rate() if i['salary'] else None
-                i['currency'] = 'RUB (конвертировано из USD)'
-        return list_vacancies
+    # path_vacancies = os.path.abspath(path_to_file)
+    # with open(path_vacancies, 'r', encoding='utf-8') as file:
+    list_vacancies = []
+    for i in opened_json:
+        if i['currency'] == 'USD':
+            i['salary'] = i['salary'] * get_exchange_rate() if i['salary'] else None
+            i['currency'] = 'RUB (конвертировано из USD)'
+        list_vacancies.append(i)
+    return list_vacancies
 
 def without_sort(list_vacancies):
     """
@@ -65,4 +66,6 @@ def sort_by_date(list_vacancies):
             Vacancies(i['name'], i['employer'], i['salary'], i['currency'], i['experience'],
                       i['employment'], i['area'], i['published_at'], i['alternate_url']))
     return sorted_vacancies
+
+
 

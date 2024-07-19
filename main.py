@@ -1,7 +1,8 @@
 import os
 import sys
 from src.get_vacancies import HHruAPI, CreateJson
-from src.utils import sort_by_salary, sort_by_date, get_exchange_rate,  change_currency, without_sort
+from src.utils import sort_by_salary, sort_by_date, get_exchange_rate, without_sort, change_currency
+from src.file_worker import JsonWorker
 
 
 def user_interaction():
@@ -21,7 +22,9 @@ def user_interaction():
     cj.write(vacancies)  # создаем json-файл для работы с вакансиями
     print(f'Найдено {len(vacancies)} вакансий:')
     path_to_file = os.path.abspath('data/vacancies.json')
-    change_currency_to_rub = change_currency(path_to_file) # открываем json и конвертируем зарплату в рубли из USD
+    js = JsonWorker(path_to_file)  # создаем объект класса JsonWorker
+    opend_json = js.open_file() # открываем файл json
+    change_currency_to_rub = change_currency(opend_json) # конвертируем зарплату в рубли из USD
     value_for_sort = input("Введите '1' для сортировки по зарплате, '2' для сортировки по дате размещения, 'Enter' - без сортировки: ")
     if value_for_sort == '1':
         vacancies_for_output = sort_by_salary(change_currency_to_rub)
