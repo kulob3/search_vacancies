@@ -42,3 +42,5 @@ def option_sort(change_currency_to_rub):
             if user_input != '1':
                 print('\nКонец программы')
                 sys.exit()
+
+                #
