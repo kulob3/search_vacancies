@@ -18,11 +18,27 @@ def create_request_phrase():
     return vacancies
 
 def made_json(vacancies):
-    cj = CreateJson('data/vacancies.json')  # создаем объект класса CreateJson
+    cj = CreateJson()  # создаем объект класса CreateJson
     cj.write(vacancies)  # создаем json-файл для работы с вакансиями
 
-import os
-
-def get_file_path(filename):
-    return os.path.abspath(filename)
-print(get_file_path('data/vacancies.json'))
+def option_sort(change_currency_to_rub):
+    value_for_sort = input("Введите '1' для сортировки по зарплате, '2' для сортировки по дате размещения, 'Enter' - без сортировки: ")
+    if value_for_sort == '1':
+        vacancies_for_output = sort_by_salary(change_currency_to_rub)
+    elif value_for_sort == '2':
+        vacancies_for_output = sort_by_date(change_currency_to_rub)
+    else:
+        vacancies_for_output = without_sort(change_currency_to_rub)
+    if len(vacancies_for_output) <= 20:
+        for i in vacancies_for_output:
+            print(i.__str__())
+    else:
+        batch_size = 20
+        for start in range(0, len(vacancies_for_output), batch_size):
+            end = start + batch_size
+            for vacancy in vacancies_for_output[start:end]:
+                print(vacancy.__str__())
+            user_input = input("\nВведите 1, чтобы увидеть следующие вакансии или 2 для завершения работы программы: ")
+            if user_input != '1':
+                print('\nКонец программы')
+                sys.exit()

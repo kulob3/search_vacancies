@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import requests
 import json
+import os
 
 class VacancyServiceAPI(ABC):
 
@@ -39,8 +40,7 @@ class HHruAPI(VacancyServiceAPI):
 
 class CreateJson:
     ''' Класс для создания файла json из списка'''
-    def __init__(self, filename):
-        self.__filename = filename
+    __filename = os.path.abspath('data/vacancies.json')
 
     @property
     def filename(self):
