@@ -11,14 +11,24 @@ class FileWorker(ABC):
         pass
 
 class JsonWorker(FileWorker):
-    def __init__(self, path_to_file):
-        self.path_to_file = path_to_file
+
+    __path_to_file = os.path.abspath('data/vacancies.json')
+    # def __init__(self, path_to_file):
+    #     self.path_to_file = path_to_file
 
     def open_file(self):
         path_vacancies = os.path.abspath(self.path_to_file)
         with open(path_vacancies, 'r', encoding='utf-8') as file:
             list_vacancies = js.loads(file.read())
             return list_vacancies
+
+    @property
+    def path_to_file(self):
+        return self.__path_to_file
+
+    @path_to_file.setter
+    def path_to_file(self, value):
+        self.__path_to_file = value
 
 
 
