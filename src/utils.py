@@ -69,3 +69,5 @@ def sort_by_date(list_vacancies):
 
 
 
+
+

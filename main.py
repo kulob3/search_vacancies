@@ -3,23 +3,14 @@ import sys
 from src.get_vacancies import HHruAPI, CreateJson
 from src.utils import sort_by_salary, sort_by_date, get_exchange_rate, without_sort, change_currency
 from src.file_worker import JsonWorker
+from src.user_interface import create_request_phrase, made_json
 
 
 def user_interaction():
     print('Привет! С помощью этой программы ты можешь найти работу.')
-    search_query = input("Введите наименование специальности для запроса: ")
-    search_salary = input("Введите минимальную зарплату для запроса, для поиска без учета размера зарплаты нажмите 'Enter': ")
-    if not search_salary:
-        search_salary = ''
-    search_sity = input("Введите город для запроса, для поиска без учета города нажмите 'Enter': ")
-    if not search_sity:
-        search_sity = ''
-    hh = HHruAPI() # Создаем объект класса HHruAPI
-    hh.connect() # Устанавливаем соединение с HH.ru
+    vacancies = create_request_phrase()
     print(f'В случае указания зарплаты в USD, зарплата будет конвертирована в RUB по курсу: {get_exchange_rate()}')
-    vacancies = hh.load_vacancies(f"{search_query} {search_sity} зарплата от {search_salary}")  # передаем поисковой запрос и получаем назад список
-    cj = CreateJson('data/vacancies.json')  # создаем объект класса CreateJson
-    cj.write(vacancies)  # создаем json-файл для работы с вакансиями
+    made_json(vacancies)
     print(f'Найдено {len(vacancies)} вакансий:')
     path_to_file = os.path.abspath('data/vacancies.json')
     js = JsonWorker(path_to_file)  # создаем объект класса JsonWorker
