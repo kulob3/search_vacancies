@@ -65,6 +65,5 @@ class CreateJson:
                 'alternate_url': i['alternate_url']
             }
             all_data.append(new_json)
-
         with open(self.filename, 'w', encoding='utf-8') as file:
             json.dump(all_data, file, ensure_ascii=False, indent=4)

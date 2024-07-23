@@ -11,10 +11,9 @@ class FileWorker(ABC):
         pass
 
 class JsonWorker(FileWorker):
+    '''Класс для открытия и удаления файла json'''
 
     __path_to_file = os.path.abspath('data/vacancies.json')
-    # def __init__(self, path_to_file):
-    #     self.path_to_file = path_to_file
 
     def open_file(self):
         path_vacancies = os.path.abspath(self.path_to_file)
@@ -29,8 +28,6 @@ class JsonWorker(FileWorker):
     @path_to_file.setter
     def path_to_file(self, value):
         self.__path_to_file = value
-
-
 
     def delete_file(self):
         try:

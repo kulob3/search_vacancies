@@ -1,7 +1,5 @@
 from datetime import datetime
 
-
-
 class Vacancies:
     ''' Класс для представления вакансий '''
     def __init__(self, name, employer, salary, currency, expirience, employment, area, published_at, alternate_url):
@@ -21,16 +19,5 @@ class Vacancies:
     def __ge__(self, other):
         return self.salary >= other.salary
 
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    v = Vacancies('Python developer', 'Company', 100000, 'RUB', '1 year', 'full-time', 'Moscow', '2021-09-01T00:00:00+0300', 'https://hh.ru')
-    v1 = Vacancies('Python developer', 'Company', 10000, 'RUB', '1 year', 'full-time', 'Moscow', '2021-09-01T00:00:00+0300', '1')
-    print(v1 < v)
 
 

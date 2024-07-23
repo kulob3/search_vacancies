@@ -1,6 +1,4 @@
 import requests
-import json as js
-import os
 from src.vacancies import Vacancies
 
 def get_exchange_rate():
@@ -22,8 +20,6 @@ def change_currency(opened_json):
     """
         Конвертирует зарплату в вакансиях из USD в RUB
     """
-    # path_vacancies = os.path.abspath(path_to_file)
-    # with open(path_vacancies, 'r', encoding='utf-8') as file:
     list_vacancies = []
     for i in opened_json:
         if i['currency'] == 'USD':
@@ -68,14 +64,12 @@ def sort_by_date(list_vacancies):
     return sorted_vacancies
 
 def comparison_salary(salary_size, change_currency_to_rub):
-    # Assuming 'salary_size' is an integer and 'change_currency_to_rub' is a list of dictionaries
-    # with each dictionary representing a vacancy and containing a 'salary' key.
+    '''
+    Оставляет вакансии с указанным уровнем зарплаты или выше
+    '''
     v = Vacancies('Python developer', 'Company', salary_size, 'RUB', '1 year', 'full-time', 'Moscow', '2021-09-01T00:00:00+0300', 'https://hh.ru')
     salary_by_level = []
     for i in change_currency_to_rub:
-        # Assuming 'salary' is the key in the dictionary 'i' that holds the salary value
-        # and 'v.salary' accesses the salary attribute of the Vacancies object.
-        # You need to replace 'v.salary' with the actual way to access the salary from a Vacancies object.
         if 'salary' in i and i['salary'] is not None and v.salary is not None and i['salary'] >= v.salary:  # Replace 'v.salary' with the correct attribute access
             salary_by_level.append(
             Vacancies(i['name'], i['employer'], i['salary'], i['currency'], i['experience'],
