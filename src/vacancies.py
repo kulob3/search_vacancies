@@ -18,6 +18,9 @@ class Vacancies:
     def __str__(self):
         return f"\n{self.name}\nРаботодатель: {self.employer}\nЗарплата от: {self.salary} {self.currency}\nТребуемый опыт: {self.expirience}\nТип занятости: {self.employment}\nГород: {self.area}\nДата размещения: {self.published_at}\n{self.alternate_url}"
 
+    def __ge__(self, other):
+        return self.salary >= other.salary
+
 
 
 

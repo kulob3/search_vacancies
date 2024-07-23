@@ -67,6 +67,20 @@ def sort_by_date(list_vacancies):
                       i['employment'], i['area'], i['published_at'], i['alternate_url']))
     return sorted_vacancies
 
+def comparison_salary(salary_size, change_currency_to_rub):
+    # Assuming 'salary_size' is an integer and 'change_currency_to_rub' is a list of dictionaries
+    # with each dictionary representing a vacancy and containing a 'salary' key.
+    v = Vacancies('Python developer', 'Company', salary_size, 'RUB', '1 year', 'full-time', 'Moscow', '2021-09-01T00:00:00+0300', 'https://hh.ru')
+    salary_by_level = []
+    for i in change_currency_to_rub:
+        # Assuming 'salary' is the key in the dictionary 'i' that holds the salary value
+        # and 'v.salary' accesses the salary attribute of the Vacancies object.
+        # You need to replace 'v.salary' with the actual way to access the salary from a Vacancies object.
+        if 'salary' in i and i['salary'] is not None and v.salary is not None and i['salary'] >= v.salary:  # Replace 'v.salary' with the correct attribute access
+            salary_by_level.append(
+            Vacancies(i['name'], i['employer'], i['salary'], i['currency'], i['experience'],
+                      i['employment'], i['area'], i['published_at'], i['alternate_url']))
+    return salary_by_level
 
 
 

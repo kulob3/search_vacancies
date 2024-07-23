@@ -17,8 +17,19 @@ def user_interaction():
     opend_json = js.open_file() # открываем файл json
     change_currency_to_rub = change_currency(opend_json) # конвертируем зарплату в рубли из USD
     option_sort(change_currency_to_rub)
+    print('\nВсе вакансии были выведены на экран')
+    while True:
+        repeat_program = input(
+            'Для возврата в меню выбора режима просмотра вакансий введите "1", для удаления вакансий и завершения работы программы введите "2": ')
+        if repeat_program == '1':
+            option_sort(change_currency_to_rub)
+        elif repeat_program == '2':
+            js.delete_file()
+            break
+        else:
+            print("Неверный ввод. Пожалуйста, введите '1' или '2'.")
+    print("Конец программы")
 
-    print('\nКонец программы, все вакансии были выведены на экран')
 
 
 if __name__ == "__main__":

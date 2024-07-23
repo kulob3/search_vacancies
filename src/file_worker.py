@@ -35,6 +35,6 @@ class JsonWorker(FileWorker):
     def delete_file(self):
         try:
             os.remove(self.path_to_file)
-            print(f"Файл {self.path_to_file} удален")
+            print(f"Файл {self.__path_to_file} удален")
         except FileNotFoundError:
-            print(f"Файл {self.path_to_file} не найден")
+            print(f"Файл {self.__path_to_file} не найден")
