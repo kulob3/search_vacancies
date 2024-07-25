@@ -4,7 +4,7 @@ import json
 import os
 
 class VacancyServiceAPI(ABC):
-
+    """Абстрактный класс для работы с API сервиса вакансий"""
     @abstractmethod
     def connect(self):
         pass
@@ -19,7 +19,7 @@ class HHruAPI(VacancyServiceAPI):
     __base_url = "https://api.hh.ru/vacancies"
 
     def connect(self):
-        # Проверка подключения к API
+        """Функция для установления соединения с HH.ru"""
         try:
             response = requests.get(self.__base_url)
             response.raise_for_status()
@@ -28,7 +28,7 @@ class HHruAPI(VacancyServiceAPI):
             print(f"Ошибка соединения: {e}")
 
     def load_vacancies(self, query):
-        # Загрузка вакансий
+        """Функция для загрузки вакансий с HH.ru"""
         params = {'text': query, 'page': 0, 'per_page': 100}
         vacancies = []
         while params.get('page') != 20:
@@ -38,32 +38,4 @@ class HHruAPI(VacancyServiceAPI):
         return vacancies
 
 
-class CreateJson:
-    ''' Класс для создания файла json из списка'''
-    __filename = os.path.abspath('data/vacancies.json')
 
-    @property
-    def filename(self):
-        return self.__filename
-
-    @filename.setter
-    def filename(self, value):
-        self.__filename = value
-
-    def write(self, data):
-        all_data = []
-        for i in data:
-            new_json = {
-                'name': i['name'],
-                'employer': i['employer']['name'],
-                'salary': i['salary']['from'] if i['salary'] else 'Не указана',
-                'currency': i['salary']['currency'] if i['salary'] else '',
-                'experience': i['experience']['name'],
-                'employment': i['employment']['name'],
-                'area': i['area']['name'],
-                'published_at': i['published_at'],
-                'alternate_url': i['alternate_url']
-            }
-            all_data.append(new_json)
-        with open(self.filename, 'w', encoding='utf-8') as file:
-            json.dump(all_data, file, ensure_ascii=False, indent=4)

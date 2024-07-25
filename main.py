@@ -3,6 +3,7 @@ from src.file_worker import JsonWorker
 from src.user_interface import create_request_phrase, made_json, option_sort
 
 def user_interaction():
+    """Функция для взаимодействия с пользователем"""
     print('Привет! С помощью этой программы ты можешь найти работу.')
     vacancies = create_request_phrase()
     print(f'В случае указания зарплаты в USD, зарплата будет конвертирована в RUB по курсу: {get_exchange_rate()}')
