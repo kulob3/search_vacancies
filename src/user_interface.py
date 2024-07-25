@@ -1,4 +1,5 @@
-from src.get_vacancies import HHruAPI, CreateJson
+from src.get_vacancies import HHruAPI
+from src.file_worker import CreateJson
 from src.utils import sort_by_salary, sort_by_date, without_sort, comparison_salary
 
 def create_request_phrase():
@@ -22,7 +23,7 @@ def made_json(vacancies):
 
 def option_sort(change_currency_to_rub):
     """Функция для выбора действий с вакансиями"""
-    vacancies_for_output = []  # Initialize vacancies_for_output to ensure it's always defined
+    vacancies_for_output = []
     while True:
         value_for_sort = input(
             "Введите '1' для сортировки по зарплате, '2' для сортировки по дате размещения, '3' для оставления вакансий с зарплатой заданного уровня, '4' - без сортировки: ")
